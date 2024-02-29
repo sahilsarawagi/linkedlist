@@ -111,6 +111,46 @@ class LinkedList
     nil
   end
 
+  def insert_at(value,index)
+    node = @head
+    if index==0
+      prepend(value)
+    elsif index== self.size
+      append(value)
+    else
+      while index>1
+        node= node.get_next_node
+        index-=1
+      end
+      inserted_node = Node.new
+      inserted_node.value=value
+      inserted_node.next_node= node.get_next_node
+      node.next_node =inserted_node
+    end
+    
+  end
+
+  def remove_at(index)
+    node = @head
+    if index==0
+      @head = @head.get_next_node
+    elsif index== self.size-1
+      while index>1
+        node= node.get_next_node
+        index-=1
+      end
+      @tail=node
+      @tail.next_node=nil
+    else
+      while index>1
+        node= node.get_next_node
+        index-=1
+      end
+      node.next_node= node.get_next_node.get_next_node
+    end
+    
+  end
+
   def to_s
     return 'nil' if @head.nil?
     result=""
@@ -144,3 +184,8 @@ p li.head.get_value
 p li.tail.get_value
 p li.contains?(7)
 p li.contains?(5)
+p li.to_s
+li.insert_at(9,2)
+p li.to_s
+li.remove_at(1)
+p li.to_s
